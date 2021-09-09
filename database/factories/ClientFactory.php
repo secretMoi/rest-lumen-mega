@@ -18,7 +18,7 @@ class ClientFactory extends Factory
             'password' => app("hash")->make('123456'),
             'street' => $this->faker->streetName,
             'number' => $this->faker->buildingNumber,
-            'zip' => $this->faker->postcode,
+            'zip' => $this->faker->randomNumber(4),
             'city' => $this->faker->city,
         ];
     }
