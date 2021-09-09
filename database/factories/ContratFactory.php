@@ -11,8 +11,13 @@ class ContratFactory extends Factory
 
     public function definition(): array
     {
-    	return [
-
-    	];
+        return [
+            'client_id ' => $this->faker->randomNumber(0, 1000),
+            'energy' => $this->faker->word,
+            'product' => $this->faker->word,
+            'gsrn' => $this->faker->randomNumber(14),
+            'duration' => $this->faker->numberBetween(1, 72),
+            'codePromo' => $this->faker->word
+        ];
     }
 }
