@@ -17,9 +17,6 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-
-
-
 $router->group(['prefix' => 'api'], function () use ($router){
     $router->post('/login', 'AuthController@Login');
     $router->post('/register', 'AuthController@Register');
@@ -32,6 +29,7 @@ $router->group(['prefix' => 'api'], function () use ($router){
         $router->post('/clients', 'ClientController@SaveNewClient');
 
         $router->get('/contrats/fromClient/{clientId}', 'ContratController@GetAllContractsFromClient');
+        $router->get('/contrats/{contractId}/fromClient/{clientId}', 'ContratController@GetOneContractFromClient');
         $router->put('/contrats/{id}', 'ContratController@UpdateContract');
     });
 });

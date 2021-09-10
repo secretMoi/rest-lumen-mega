@@ -18,6 +18,19 @@ class ContratController extends Controller
         }
     }
 
+    public function GetOneContractFromClient($contractId, $clientId){
+        try {
+            $contract = Contrat::findOrFail($contractId);
+            if($contract->client_id != $clientId)
+                throw new Exception("Le contrat demandé n'appartient pas au client fourni");
+
+            return $contract;
+        }
+        catch (Exception $exception){
+            return response()->json(['status' => 'error', 'message' => $exception->getMessage()]);
+        }
+    }
+
     public function UpdateContract(Request $request, $id){
         try {
             $contract = Contrat::findOrFail($id);
