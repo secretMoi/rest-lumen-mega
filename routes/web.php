@@ -18,5 +18,9 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api'], function () use ($router){
+    $router->get('/clients/{id}', 'ClientController@GetClientById');
     $router->get('/clients', 'ClientController@GetAll');
+
+    $router->get('/contrats/fromClient/{clientId}', 'ContratController@GetAllContractsFromClient');
+    $router->put('/contrats/{id}', 'ContratController@UpdateContract');
 });
