@@ -39,21 +39,35 @@ class ClientController extends Controller
 
     public function SaveNewClient(Request $request){
         try {
-            $post = new Client();
-            $post->firstName = $request->firstName;
-            $post->lastName = $request->lastName;
-            $post->mail = $request->mail;
-            $post->password = app('hash')->make($request->password);
-            $post->street = $request->street;
-            $post->number = $request->number;
-            $post->zip = $request->zip;
-            $post->city = $request->city;
+            // check si email valide
+            if(!filter_var($request->mail, FILTER_VALIDATE_EMAIL)){
+                throw new Exception('Email invalide');
+            }
 
-            if($post->save()){
+            if(Client::where('mail', '=', $request->mail)->exists()){
+                throw new Exception('Email déjà utilisée');
+            }
+
+            // check longueur du password
+            if(strlen($request->password) < 6){
+                throw new Exception('Mot de passe inférieur à 6 caractères');
+            }
+
+            $client = new Client();
+            $client->firstName = $request->firstName;
+            $client->lastName = $request->lastName;
+            $client->mail = $request->mail;
+            $client->password = app('hash')->make($request->password);
+            $client->street = $request->street;
+            $client->number = $request->number;
+            $client->zip = $request->zip;
+            $client->city = $request->city;
+
+            if($client->save()){
                 return response()->json(['status' => 'success', 'message' => 'Client créé']);
             }
         }
-        catch (\Exception $e){
+        catch (Exception $e){
             return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
         }
     }
