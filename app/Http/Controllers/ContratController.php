@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Contrat;
 use Exception;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class ContratController extends Controller
